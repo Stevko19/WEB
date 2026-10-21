@@ -1,0 +1,59 @@
+ANTROPOLOGICKÉ ČÍTANIA — šablóna
+================================
+
+AKO TO SPUSTIŤ
+  Otvorte súbor index.html (dvojklik). Nič netreba inštalovať.
+  Dôležité: ak ste priečinok dostali ako ZIP, najprv ho rozbaľte
+  (Windows: pravé tlačidlo → Extrahovať všetko; Mac: dvojklik na ZIP).
+  index.html otvorený priamo zo ZIP-u nenájde ostatné súbory.
+
+  Súbory musia ostať spolu v tomto priečinku. Priečinok môžete
+  presunúť alebo premenovať, nesmiete z neho len vybrať index.html.
+
+ČO JE V PRIEČINKU
+  index.html          stránka, ktorú otvárate
+  clanky.js           ← VAŠE ČLÁNKY: jediný súbor na bežnú úpravu
+  img/                sem dávajte obrázky k článkom
+  app.js              logika: karusel, detail, kritika, úlohy
+  styles.css          farby, písma, vzhľad
+  tailwind.css        predkompilované štýly Tailwind
+  tailwind.config.js  nastavenie Tailwindu (len pri úprave šablóny)
+  tailwind.src.css    vstup pre Tailwind (len pri úprave šablóny)
+  CITAJMA.txt         tento návod
+
+PRIDANIE ČLÁNKU
+  1. Otvorte clanky.js v textovom editore (Poznámkový blok, TextEdit,
+     najlepšie VS Code).
+  2. Skopírujte jeden objekt { … } v poli window.CLANKY, vložte ho za
+     čiarku a prepíšte polia. Popis všetkých polí je na začiatku súboru.
+  3. Obrázok uložte do priečinka img a do poľa "obrazok" napíšte napr.
+     "img/mauss.jpg". Najlepšie štvorec, aspoň 800 × 800 px.
+     Bez obrázka sa vygeneruje farebná obálka.
+     Výrez bez pozadia (PNG s priehľadnosťou) sa zobrazí celý, ak
+     pridáte "obrazok_cely": true. Ak sa pri orezaní stratí dôležitá
+     časť obrázka, posuňte výrez cez "obrazok_pozicia", napr. "33% 45%".
+  4. Súbor uložte a stránku v prehliadači obnovte (F5).
+
+  Článok so "stav": "pripravuje_sa" sa v karuseli zobrazí, ale nedá sa
+  otvoriť. Ukážkové karty (Mauss, Malinowski, Douglasová, Geertz, Turner)
+  sú zástupné — prepíšte ich alebo zmažte.
+
+INTERNET
+  Stránka funguje aj bez internetu. Pripojenie je potrebné len na
+  písma Literata a Schibsted Grotesk; offline sa použijú náhradné.
+
+ZVEREJNENIE PRE ŠTUDENTOV
+  Nahrajte celý priečinok na webový hosting (školský server,
+  GitHub Pages, Netlify). Priame odkazy:
+    index.html#bloch-theory-of-mind            článok
+    index.html#bloch-theory-of-mind~ulohy      rovno úlohy
+    index.html#bloch-theory-of-mind~kritika    s otvorenou kritikou
+
+POZNÁMKY ŠTUDENTOV
+  Odpovede na úlohy sa ukladajú iba v prehliadači študenta.
+  Tlačidlo „Kopírovať odpovede“ ich pripraví na vloženie do e-mailu.
+
+ÚPRAVA ŠABLÓNY (pokročilé)
+  Farby a písma sú na začiatku styles.css. Ak do index.html alebo
+  app.js pridáte nové triedy Tailwindu, zostavte CSS znova (Node.js):
+    npx tailwindcss@3.4.17 -c tailwind.config.js -i tailwind.src.css -o tailwind.css --minify
