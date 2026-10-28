@@ -1049,7 +1049,7 @@
       cancelAnimationFrame(arc.raf); arc.raf = 0;
       setTab(tab, { updateUrl: false });
       if (critique) setCritique(true, { focus: false });
-      document.title = `${CFG.nazov} | ${a.titulok}`;
+      document.title = `${a.titulok} | ${CFG.nazov}`;
     };
 
     const cardImg = !switching && arc.pool.get(abs)?.querySelector('img');
