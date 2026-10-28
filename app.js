@@ -30,7 +30,7 @@
 
   /* ---------- 0. KONFIGURÁCIA ---------------------------------------------- */
 
-  const CFG = Object.assign({ nazov: 'Antropologické čítania' }, window.NASTAVENIA || {});
+  const CFG = Object.assign({ nazov: 'ANTHROPIA' }, window.NASTAVENIA || {});
   const T = Object.assign({
     text: 'Text',
     kritika: 'Kritika',
