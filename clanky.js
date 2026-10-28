@@ -1,5 +1,5 @@
 /* ==========================================================================
-   DÁTA: Antropologické čítania
+   DÁTA: ANTHROPIA
    --------------------------------------------------------------------------
    Toto je jediný súbor, ktorý pri bežnej práci upravujete.
    Každý článok je jeden objekt v poli window.CLANKY. Poradie v poli
@@ -45,7 +45,7 @@
    ========================================================================== */
 
 window.NASTAVENIA = {
-  nazov: "Antropologické čítania",
+  nazov: "ANTHROPIA",
 
   /* Texty rozhrania. Zmeňte, ak chcete iné pomenovanie. */
   popisky: {
