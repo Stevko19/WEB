@@ -27,21 +27,21 @@
 @property --ambient {
   syntax: '<color>';
   inherits: true;
-  initial-value: #f3e8e2;
+  initial-value: #0b0f12;
 }
 
 :root {
-  --ink: #fffdfb;            /* pozadie scény */
-  --raised: #f4efec;         /* okrúhle tlačidlá, polia */
-  --raised-hover: #ebe3df;
-  --bone: #191716;           /* hlavný text */
-  --ash: #6d6561;            /* vedľajší text */
-  --ochre: #c95d36;          /* tehlovo-oranžový akcent značky */
-  --line: rgba(25, 23, 22, .12);
-  --line-strong: rgba(25, 23, 22, .28);
-  --ambient: #f3e8e2;        /* jemné teplé podsvietenie podľa článku v strede */
+  /* Galéria je zámerne iba tmavá (podľa referenčného návrhu). */
+  --ink: #05080a;            /* pozadie scény */
+  --raised: #1b2024;         /* okrúhle tlačidlá, polia */
+  --raised-hover: #272d32;
+  --bone: #eeebe3;           /* hlavný text */
+  --ash: #8f979d;            /* vedľajší text */
+  --ochre: #e2b25a;          /* akcent: okr, najstarší pigment ľudstva */
+  --line: rgba(238, 235, 227, .14);
+  --line-strong: rgba(238, 235, 227, .3);
+  --ambient: #0b0f12;        /* podsvietenie podľa článku v strede */
 
-  --font-display: "Bodoni Moda", "Bodoni MT", Didot, "Times New Roman", serif;
   --font-read: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --font-ui: "Schibsted Grotesk", ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
@@ -49,7 +49,7 @@
   --bar-h: 3.5rem;           /* výška lišty v detaile */
   --drawer-w: 30rem;         /* šírka panelu kritiky */
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 
@@ -107,25 +107,6 @@ body { font-family: var(--font-ui); }
   padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
 }
 
-.brand-word {
-  display: inline-block;
-  color: var(--bone);
-  font: 500 clamp(1.3rem, 3.2vw, 2rem)/1 var(--font-display);
-  letter-spacing: .075em;
-  white-space: nowrap;
-}
-.brand-o { position: relative; display: inline-block; }
-.brand-o::after {
-  position: absolute;
-  top: -15%;
-  left: 52%;
-  width: .055em;
-  height: 130%;
-  background: var(--ochre);
-  content: "";
-  transform: rotate(28deg);
-}
-
 /* Oblúk: karty sú absolútne umiestnené, polohu počíta app.js */
 .arc {
   position: absolute; inset: 0; z-index: 2;
@@ -142,7 +123,7 @@ body { font-family: var(--font-ui); }
   background: var(--raised);
   cursor: pointer;
   will-change: transform;
-  box-shadow: 0 14px 30px -20px rgba(40, 27, 21, .4);
+  box-shadow: 0 18px 36px -18px rgba(0, 0, 0, .8);
   -webkit-tap-highlight-color: transparent;
 }
 .arc-card img {
@@ -170,7 +151,6 @@ body { font-family: var(--font-ui); }
   text-align: center;
 }
 .focus-title {
-  font-family: var(--font-display);
   font-size: clamp(1.45rem, .95rem + 1.55vw, 2.35rem);
   line-height: 1.14;
   font-weight: 600;
@@ -221,7 +201,7 @@ body { font-family: var(--font-ui); }
 .index {
   position: fixed; inset: 0; z-index: 50;
   overflow-y: auto; overscroll-behavior: contain;
-  background: rgba(255, 253, 251, .95);
+  background: rgba(5, 8, 10, .94);
   -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
   padding-top: calc(env(safe-area-inset-top, 0px) + 1.25rem);
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2.5rem);
@@ -239,7 +219,7 @@ body { font-family: var(--font-ui); }
   border-radius: .75rem;
   transition: background-color .15s;
 }
-.index-row:hover { background: rgba(25, 23, 22, .045); }
+.index-row:hover { background: rgba(238, 235, 227, .05); }
 .index-row img { width: 4rem; height: 4rem; border-radius: 21%; object-fit: cover; background: var(--raised); }
 .index-row.is-draft img { filter: saturate(.5) brightness(.78); }
 
@@ -247,39 +227,58 @@ body { font-family: var(--font-ui); }
 
 
 /* ---------- 5. DETAIL: TOKENY REŽIMU ČÍTANIA ------------------------------ */
-/* Predvolene používa svetlú značkovú paletu; prepínač zachová tmavý režim. */
+/* Predvolene nasleduje tému zariadenia; prepínač v lište ju prepíše
+   (atribút data-reading="light|dark" na .reader). */
 
 .reader {
-  --paper: #fffdfb;
-  --paper-2: #f4efec;
-  --paper-3: #faf7f5;
-  --type: #191716;
-  --type-2: #625a56;
-  --accent: #c95d36;
-  --accent-ink: #fffaf7;
-  --rule: rgba(25, 23, 22, .14);
-  --ruling: rgba(25, 23, 22, .09);
-  --frame: var(--raised);    /* panel celého obrázka (obrazok_cely): farba karty z galérie v oboch režimoch;
-                                pre svetlý panel vo svetlom režime zmeňte na var(--paper-2) */
-  --done: #2f7a45;
-  --wrong: #a83a26;
-  --scheme: light;
-  color-scheme: light;
-}
-.reader[data-reading="dark"] {
   --paper: #080b0d;
-  --paper-2: #11161a;
-  --paper-3: #161c20;
+  --paper-2: #11161a;   /* plochy: perex, výzva, kritika */
+  --paper-3: #161c20;   /* polia formulára */
   --type: #e6e3db;
   --type-2: #9ba3a8;
-  --accent: #e2744c;
-  --accent-ink: #1a100c;
+  --accent: #e2b25a;
+  --accent-ink: #1a1206;
   --rule: rgba(230, 227, 219, .13);
   --ruling: rgba(230, 227, 219, .075);
+  --frame: var(--raised);    /* panel celého obrázka (obrazok_cely): farba karty z galérie v oboch režimoch;
+                                pre svetlý panel vo svetlom režime zmeňte na var(--paper-2) */
   --done: #8cc29a;
   --wrong: #e58f7f;
   --scheme: dark;
   color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .reader:not([data-reading="dark"]) {
+    --paper: #eeefe9;
+    --paper-2: #e3e5dd;
+    --paper-3: #f8f8f4;
+    --type: #1b1f21;
+    --type-2: #596166;
+    --accent: #8a560c;
+    --accent-ink: #fff8ec;
+    --rule: rgba(27, 31, 33, .14);
+    --ruling: rgba(27, 31, 33, .1);
+    --done: #2f7a45;
+    --wrong: #a83a26;
+    --scheme: light;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] .reader:not([data-reading="dark"]),
+.reader[data-reading="light"] {
+  --paper: #eeefe9;
+  --paper-2: #e3e5dd;
+  --paper-3: #f8f8f4;
+  --type: #1b1f21;
+  --type-2: #596166;
+  --accent: #8a560c;
+  --accent-ink: #fff8ec;
+  --rule: rgba(27, 31, 33, .14);
+  --ruling: rgba(27, 31, 33, .1);
+  --done: #2f7a45;
+  --wrong: #a83a26;
+  --scheme: light;
+  color-scheme: light;
 }
 
 
@@ -331,7 +330,7 @@ body { font-family: var(--font-ui); }
   flex: 1; min-width: 0;
   overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
   text-align: center;
-  font: 500 .95rem/1.2 var(--font-display);
+  font: 600 .95rem/1.2 var(--font-read);
   opacity: 0; transform: translateY(4px);
   transition: opacity .25s, transform .25s;
 }
@@ -420,7 +419,7 @@ body { font-family: var(--font-ui); }
 .reader-head { display: flex; flex-direction: column; gap: 1.25rem; padding-block: 2.25rem 2.5rem; }
 .reader-title {
   max-width: 24ch;
-  font-family: var(--font-display);
+  font-family: var(--font-read);
   font-size: clamp(2.05rem, 1.25rem + 3vw, 3.7rem);
   line-height: 1.06;
   font-weight: 600;
@@ -509,12 +508,11 @@ body { font-family: var(--font-ui); }
 .prose-reader > * + * { margin-top: 1.1em; }
 .prose-reader h2 {
   margin-top: 2.3em;
-  font-family: var(--font-display);
   font-size: 1.6rem; line-height: 1.25; font-weight: 600; letter-spacing: -.01em;
   text-wrap: balance;
   scroll-margin-top: calc(var(--bar-h) + 5.5rem);
 }
-.prose-reader h3 { margin-top: 1.8em; font-family: var(--font-display); font-size: 1.25rem; line-height: 1.3; font-weight: 600; }
+.prose-reader h3 { margin-top: 1.8em; font-size: 1.25rem; line-height: 1.3; font-weight: 600; }
 .prose-reader h4 { margin-top: 1.5em; font-family: var(--font-ui); font-size: 1rem; font-weight: 700; }
 .prose-reader > :first-child { margin-top: 0; }
 .prose-reader h2 + *, .prose-reader h3 + * { margin-top: .6em; }
@@ -580,7 +578,7 @@ body { font-family: var(--font-ui); }
   border-radius: 1rem;
   background: var(--paper-2);
 }
-.callout-title { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.25; font-weight: 600; }
+.callout-title { font-family: var(--font-read); font-size: 1.35rem; line-height: 1.25; font-weight: 600; }
 .callout-text { color: var(--type-2); line-height: 1.55; max-width: 34rem; }
 
 .next-card {
@@ -593,7 +591,7 @@ body { font-family: var(--font-ui); }
 .next-card:hover { border-color: var(--type-2); }
 .next-card img { width: 4.5rem; height: 4.5rem; border-radius: 21%; object-fit: cover; background: var(--paper-2); }
 .next-card-label { font-size: .85rem; color: var(--type-2); }
-.next-card-title { margin-top: .2rem; font-family: var(--font-display); font-size: 1.12rem; line-height: 1.3; font-weight: 600; text-wrap: balance; }
+.next-card-title { margin-top: .2rem; font-family: var(--font-read); font-size: 1.12rem; line-height: 1.3; font-weight: 600; text-wrap: balance; }
 
 
 /* ---------- 9. DETAIL: ÚLOHY A KVÍZ --------------------------------------- */
@@ -698,7 +696,7 @@ body { font-family: var(--font-ui); }
   padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) max(1.25rem, env(safe-area-inset-right, 0px)) 1.1rem 1.5rem;
   border-bottom: 1px solid var(--rule);
 }
-.critique-title { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.15; font-weight: 600; }
+.critique-title { font-family: var(--font-read); font-size: 1.6rem; line-height: 1.15; font-weight: 600; }
 .critique-title:focus { outline: none; }
 .critique-sub { grid-column: 1; font-size: .9rem; color: var(--type-2); }
 .critique-head .r-btn-icon { grid-row: 1 / span 2; grid-column: 2; }

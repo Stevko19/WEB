@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>ANTHROPIA</title>
-  <meta name="description" content="Anthropia — výber antropologických textov s kritikou a úlohami pre študentov magisterského stupňa.">
+  <title>Antropologické čítania</title>
+  <meta name="description" content="Výber antropologických textov s kritikou a úlohami pre študentov magisterského stupňa.">
 
-  <!-- Písma: Bodoni Moda (značka a nadpisy), Literata (čítanie) a Schibsted Grotesk (rozhranie) -->
+  <!-- Písma: Literata (čítanie, nadpisy) + Schibsted Grotesk (rozhranie) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Schibsted+Grotesk:wght@400..900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Schibsted+Grotesk:wght@400..900&display=swap">
 
   <!-- Tailwind: predkompilované utility (funguje aj offline).
        Pri úpravách šablóny môžete namiesto neho dočasne použiť Play CDN:
@@ -22,7 +22,7 @@
 </head>
 <body class="font-ui antialiased">
 
-  <h1 class="sr-only" data-bind="nazov">ANTHROPIA</h1>
+  <h1 class="sr-only" data-bind="nazov">Antropologické čítania</h1>
   <div id="safe-probe" aria-hidden="true"></div>
 
   <!-- =====================================================================
@@ -33,8 +33,16 @@
     <div class="gallery-ambient" aria-hidden="true"></div>
 
     <header id="gallery-header" class="gallery-header flex items-center justify-between gap-4">
-      <a href="#" class="brand rounded-full text-bone" data-action="home" aria-label="Anthropia — domov">
-        <span class="brand-word" aria-hidden="true">ANTHR<span class="brand-o">O</span>PIA</span>
+      <a href="#" class="brand flex min-w-0 items-center gap-3 rounded-full text-bone" data-action="home">
+        <!-- Značka: päť kariet na oblúku, horná je práve vybraná -->
+        <svg class="h-8 w-8 shrink-0" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="1.9"  y="18.8" width="5.5" height="5.5" rx="1.4" fill="currentColor" opacity=".55" transform="rotate(-60 4.7 21.5)"/>
+          <rect x="6.8"  y="14"   width="5.5" height="5.5" rx="1.4" fill="currentColor" opacity=".8"  transform="rotate(-30 9.5 16.7)"/>
+          <rect x="13.25" y="12.25" width="5.5" height="5.5" rx="1.4" fill="var(--ochre)"/>
+          <rect x="19.7" y="14"   width="5.5" height="5.5" rx="1.4" fill="currentColor" opacity=".8"  transform="rotate(30 22.5 16.7)"/>
+          <rect x="24.6" y="18.8" width="5.5" height="5.5" rx="1.4" fill="currentColor" opacity=".55" transform="rotate(60 27.3 21.5)"/>
+        </svg>
+        <span class="truncate text-[0.95rem] font-semibold tracking-[-0.01em]" data-bind="nazov">Antropologické čítania</span>
       </a>
       <button id="open-index" type="button"
               class="flex shrink-0 items-center gap-2 rounded-full border border-line-strong px-4 py-2 text-[0.85rem] font-semibold text-bone transition-colors hover:bg-raised max-[480px]:h-11 max-[480px]:w-11 max-[480px]:justify-center max-[480px]:p-0">
