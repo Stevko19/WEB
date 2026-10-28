@@ -38,10 +38,12 @@
   --bone: #eeebe3;           /* hlavný text */
   --ash: #8f979d;            /* vedľajší text */
   --ochre: #e2b25a;          /* akcent: okr, najstarší pigment ľudstva */
+  --brand-orange: #d2643b;
   --line: rgba(238, 235, 227, .14);
   --line-strong: rgba(238, 235, 227, .3);
   --ambient: #0b0f12;        /* podsvietenie podľa článku v strede */
 
+  --font-display: "Bodoni Moda", "Bodoni MT", Didot, "Times New Roman", serif;
   --font-read: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --font-ui: "Schibsted Grotesk", ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
@@ -105,6 +107,39 @@ body { font-family: var(--font-ui); }
   padding-top: calc(env(safe-area-inset-top, 0px) + 1.1rem);
   padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
   padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
+}
+
+.brand {
+  display: inline-flex; align-items: center; min-width: 0;
+  color: var(--bone); text-decoration: none;
+}
+
+.brand-wordmark {
+  display: inline-flex; align-items: baseline; gap: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.2vw, 3.5rem);
+  font-weight: 500; line-height: 1; letter-spacing: .035em;
+  color: var(--bone); text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brand-o {
+  position: relative; display: inline-block;
+  color: transparent;
+  background: linear-gradient(90deg, var(--brand-orange) 0 49.5%, var(--bone) 50% 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-o::after {
+  content: "";
+  position: absolute; top: -.17em; left: 53%;
+  width: .045em;
+  height: 1.35em;
+  background: var(--brand-orange);
+  transform: rotate(28deg);
+  pointer-events: none;
 }
 
 /* Oblúk: karty sú absolútne umiestnené, polohu počíta app.js */
