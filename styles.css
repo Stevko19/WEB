@@ -110,20 +110,28 @@ body { font-family: var(--font-ui); }
 .brand-word {
   display: inline-block;
   color: var(--bone);
-  font: 500 clamp(1.3rem, 3.2vw, 2rem)/1 var(--font-display);
-  letter-spacing: .075em;
+  font: 500 clamp(1.7rem, 4vw, 2.65rem)/1 var(--font-display);
+  letter-spacing: .06em;
   white-space: nowrap;
 }
-.brand-o { position: relative; display: inline-block; }
+.brand-o {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(110deg, var(--ochre) 0 49%, var(--bone) 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .brand-o::after {
   position: absolute;
-  top: -15%;
-  left: 52%;
+  top: -20%;
+  left: 49%;
   width: .055em;
-  height: 130%;
+  height: 140%;
   background: var(--ochre);
   content: "";
-  transform: rotate(28deg);
+  transform: rotate(24deg);
+  -webkit-text-fill-color: initial;
 }
 
 /* Oblúk: karty sú absolútne umiestnené, polohu počíta app.js */
