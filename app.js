@@ -30,7 +30,7 @@
 
   /* ---------- 0. KONFIGURÁCIA ---------------------------------------------- */
 
-  const CFG = Object.assign({ nazov: 'ANTHROPIA' }, window.NASTAVENIA || {});
+  const CFG = Object.assign({ nazov: 'Antropologické čítania' }, window.NASTAVENIA || {});
   const T = Object.assign({
     text: 'Text',
     kritika: 'Kritika',
@@ -1049,7 +1049,7 @@
       cancelAnimationFrame(arc.raf); arc.raf = 0;
       setTab(tab, { updateUrl: false });
       if (critique) setCritique(true, { focus: false });
-      document.title = `${CFG.nazov} | ${a.titulok}`;
+      document.title = `${a.titulok} | ${CFG.nazov}`;
     };
 
     const cardImg = !switching && arc.pool.get(abs)?.querySelector('img');
