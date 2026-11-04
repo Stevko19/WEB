@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ANTROPOLOGICKÉ ČÍTANIA — aplikačná logika
+   ANTHROPICAL — aplikačná logika
    --------------------------------------------------------------------------
    Pohľad 1  GALÉRIA   oblúkový karusel kariet (window.CLANKY)
    Pohľad 2  DETAIL    celoobrazovkové čítanie: text, kritika, úlohy, literatúra
@@ -30,7 +30,7 @@
 
   /* ---------- 0. KONFIGURÁCIA ---------------------------------------------- */
 
-  const CFG = Object.assign({ nazov: 'ANTHROPIA' }, window.NASTAVENIA || {});
+  const CFG = Object.assign({ nazov: 'ANTHROPICAL' }, window.NASTAVENIA || {});
   const T = Object.assign({
     text: 'Text',
     kritika: 'Kritika',
@@ -244,6 +244,8 @@
   function applyFit(img, a) {
     img.style.objectFit = a.fit;
     img.style.objectPosition = a.pos;
+    // celý obrázok na ploche vo farbe jeho vlastného pozadia (obrazok_pozadie)
+    img.style.backgroundColor = a.fit === 'contain' ? a.bg : '';
     img.classList.toggle('is-whole', a.fit === 'contain');
     img.classList.toggle('is-bottom', a.fit === 'contain' && a.bottom);
   }
@@ -251,6 +253,7 @@
   function resetFit(img) {
     img.style.objectFit = '';
     img.style.objectPosition = '';
+    img.style.backgroundColor = '';
     img.classList.remove('is-whole', 'is-bottom');
   }
 
@@ -258,7 +261,8 @@
   function imgAttrs(a) {
     if (!a.image) return `src="${esc(a.cover.src)}"`;
     const cls = a.fit === 'contain' ? ` class="is-whole${a.bottom ? ' is-bottom' : ''}"` : '';
-    return `src="${esc(a.image)}" data-cover="${esc(a.cover.src)}" style="object-fit:${a.fit};object-position:${esc(a.pos)}"${cls}`;
+    const bg = a.fit === 'contain' && a.bg ? `;background-color:${a.bg}` : '';
+    return `src="${esc(a.image)}" data-cover="${esc(a.cover.src)}" style="object-fit:${a.fit};object-position:${esc(a.pos)}${bg}"${cls}`;
   }
 
   /** Ak sa obrázok nenačíta (preklep v ceste), použije sa vygenerovaná obálka */
@@ -335,9 +339,14 @@
         p.replaceWith(h);
       }
     });
+    // Odsek celý v kurzíve je poznámka k literatúre (napr. o preklade), nie zdroj
+    $$('p', holder).forEach(p => {
+      const only = p.children.length === 1 && /^(EM|I)$/.test(p.children[0].tagName);
+      if (only && p.textContent.trim() === p.children[0].textContent.trim()) p.classList.add('biblio-note');
+    });
     linkify(holder);
     externalLinks(holder);
-    const count = $$('p, li', holder).length;
+    const count = $$('p:not(.biblio-note), li', holder).length;
     return { html: holder.innerHTML, count };
   }
 
@@ -347,8 +356,8 @@
     let id = slugify(a.id ?? '') || slugify(a.titulok) || `clanok-${i + 1}`;
     while (usedIds.has(id)) id = `${id}-${i + 1}`;
     usedIds.add(id);
-    if (!a.titulok) console.warn(`[Čítania] Článok „${id}“ nemá pole „titulok“.`);
-    if (!a.perex) console.warn(`[Čítania] Článok „${id}“ nemá pole „perex“.`);
+    if (!a.titulok) console.warn(`[ANTHROPICAL] Článok „${id}“ nemá pole „titulok“.`);
+    if (!a.perex) console.warn(`[ANTHROPICAL] Článok „${id}“ nemá pole „perex“.`);
     const cover = makeCover(id);
     return {
       raw: a,
@@ -364,6 +373,7 @@
       fit: a.obrazok_cely ? 'contain' : 'cover',
       pos: String(a.obrazok_pozicia || '50% 50%').replace(/[;"<>]/g, ''),
       bottom: /(^|\s)(100%|bottom)\s*$/.test(String(a.obrazok_pozicia || '').trim()),
+      bg: /^#[0-9a-f]{3,8}$/i.test(String(a.obrazok_pozadie || '').trim()) ? String(a.obrazok_pozadie).trim() : '',
       cover,
       ambient: a.farba || cover.ambient,
       _ready: false,
@@ -910,7 +920,7 @@
         <main class="reader-main">
           <header>
             <div class="hero-wrap">
-              <figure class="hero-media${a.image && a.fit === 'contain' ? ` hero-media--whole${a.bottom ? ' is-bottom' : ''}` : ''}">
+              <figure class="hero-media${a.image && a.fit === 'contain' ? ` hero-media--whole${a.bottom ? ' is-bottom' : ''}` : ''}"${a.image && a.fit === 'contain' && a.bg ? ` style="--frame: ${a.bg}"` : ''}>
                 <img id="hero-img" alt="${esc(a.alt)}" style="view-transition-name: hero-media">
               </figure>
               ${a.credit ? `<p class="hero-credit">${esc(a.credit)}</p>` : ''}
@@ -1049,7 +1059,7 @@
       cancelAnimationFrame(arc.raf); arc.raf = 0;
       setTab(tab, { updateUrl: false });
       if (critique) setCritique(true, { focus: false });
-      document.title = `${CFG.nazov} | ${a.titulok}`;
+      document.title = `${a.titulok} | ${CFG.nazov}`;
     };
 
     const cardImg = !switching && arc.pool.get(abs)?.querySelector('img');
@@ -1450,6 +1460,19 @@
     }
   }
 
+  /* Nápis ANTHROPICAL: každé písmeno má farbu z loga v poradí, v akom ich
+     má logo (pri inom názve sa farby opakujú). „O“ je terakotové ako
+     hroty kompasu, ktorý je v logu na jeho mieste. */
+  const WORDMARK_COLORS = ['terracotta', 'cream', 'teal', 'ochre', 'blue', 'terracotta', 'sage', 'cream', 'terracotta', 'blue', 'ochre'];
+  function renderWordmark(el, name) {
+    let k = 0, html = '';
+    for (const ch of String(name)) {
+      if (/\s/.test(ch)) { html += '<span>&nbsp;</span>'; continue; }
+      html += `<span style="color: var(--brand-${WORDMARK_COLORS[k++ % WORDMARK_COLORS.length]})">${esc(ch)}</span>`;
+    }
+    el.innerHTML = `<span class="sr-only">${esc(name)}</span><span class="wordmark-letters" aria-hidden="true">${html}</span>`;
+  }
+
   let booted = false;
   function route() {
     const r = parseHash();
@@ -1462,7 +1485,7 @@
       if (!state.reader || state.reader.a !== a) openReader(a, { tab, critique, animate });
       else if (state.reader.tab !== tab) setTab(tab, { updateUrl: false });
     } else {
-      if (r && !a) console.warn(`[Čítania] Článok s ID „${r.id}“ neexistuje.`);
+      if (r && !a) console.warn(`[ANTHROPICAL] Článok s ID „${r.id}“ neexistuje.`);
       if (a && a.draft && !state.reader) snapTo(nearestAbs(a.index));
       if (state.reader) closeReader({ animate });
       state.fromGallery = false;
@@ -1472,6 +1495,9 @@
   window.addEventListener('popstate', route);
 
   function boot() {
+    // Nápis značky: farebné písmená podľa loga
+    $$('[data-wordmark]').forEach(el => renderWordmark(el, CFG.nazov));
+
     // Texty rozhrania z konfigurácie
     $$('[data-bind]').forEach(el => {
       const key = el.dataset.bind;
