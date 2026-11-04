@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>ANTHROPIA</title>
+  <title>ANTHROPICAL</title>
   <meta name="description" content="Výber antropologických textov s kritikou a úlohami pre študentov magisterského stupňa.">
 
-  <!-- Písma: Bodoni Moda (značka), Literata (čítanie) a Schibsted Grotesk (rozhranie) -->
+  <!-- Písma: Literata (čítanie, nadpisy) + Schibsted Grotesk (rozhranie) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Schibsted+Grotesk:wght@400..900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Schibsted+Grotesk:wght@400..900&display=swap">
 
   <!-- Tailwind: predkompilované utility (funguje aj offline).
        Pri úpravách šablóny môžete namiesto neho dočasne použiť Play CDN:
@@ -22,7 +22,27 @@
 </head>
 <body class="font-ui antialiased">
 
-  <h1 class="sr-only" data-bind="nazov">ANTHROPIA</h1>
+  <!-- Kompas zo znaku ANTHROPICAL (farby podľa loga), použitý ako logo
+       vľavo hore; hrúbku kruhu nastavuje --kompas-kruh. -->
+  <svg class="kompas-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="kompas" viewBox="-100 -100 200 200">
+      <circle r="68" fill="none" stroke="#e2c39c" style="stroke-width: var(--kompas-kruh, 4px)"/>
+      <!-- šikmé hroty -->
+      <path fill="#4a7877" d="M-38-38 0-16 0 0z"/><path fill="#d6c3ab" d="M-38-38-16 0 0 0z"/>
+      <path fill="#d6c3ab" d="M38-38 0-16 0 0z"/><path fill="#4a7877" d="M38-38 16 0 0 0z"/>
+      <path fill="#d6c3ab" d="M38 38 16 0 0 0z"/><path fill="#4a7877" d="M38 38 0 16 0 0z"/>
+      <path fill="#4a7877" d="M-38 38-16 0 0 0z"/><path fill="#a35a3a" d="M-38 38 0 16 0 0z"/>
+      <!-- hlavné hroty: krémová a terakotová polovica -->
+      <path fill="#efdcc2" d="M0-100-14-14 0 0z"/><path fill="#b05a3a" d="M0-100 14-14 0 0z"/>
+      <path fill="#efdcc2" d="M92 0 14-14 0 0z"/><path fill="#b05a3a" d="M92 0 14 14 0 0z"/>
+      <path fill="#efdcc2" d="M0 100-14 14 0 0z"/><path fill="#b05a3a" d="M0 100 14 14 0 0z"/>
+      <path fill="#b05a3a" d="M-92 0-14-14 0 0z"/><path fill="#efdcc2" d="M-92 0-14 14 0 0z"/>
+      <!-- stred -->
+      <circle r="17" fill="#a87239"/><circle r="14" fill="#efdcc2"/><circle r="10.5" fill="#417070"/>
+    </symbol>
+  </svg>
+
+  <h1 class="sr-only" data-bind="nazov">ANTHROPICAL</h1>
   <div id="safe-probe" aria-hidden="true"></div>
 
   <!-- =====================================================================
@@ -33,10 +53,11 @@
     <div class="gallery-ambient" aria-hidden="true"></div>
 
     <header id="gallery-header" class="gallery-header flex items-center justify-between gap-4">
-      <a href="#" class="brand" data-action="home" aria-label="ANTHROPIA">
-        <span class="brand-wordmark" aria-hidden="true">
-          <span>ANTHR</span><span class="brand-o">O</span><span>PIA</span>
-        </span>
+      <a href="#" class="brand flex min-w-0 items-center gap-3 rounded-full text-bone" data-action="home">
+        <!-- Značka: kompas z loga ANTHROPICAL -->
+        <svg class="brand-mark h-8 w-8 shrink-0" aria-hidden="true"><use href="#kompas" width="100%" height="100%"/></svg>
+        <!-- Nápis: app.js ho poskladá z NASTAVENIA.nazov (písmená vo farbách loga) -->
+        <span class="wordmark" data-wordmark>ANTHROPICAL</span>
       </a>
       <button id="open-index" type="button"
               class="flex shrink-0 items-center gap-2 rounded-full border border-line-strong px-4 py-2 text-[0.85rem] font-semibold text-bone transition-colors hover:bg-raised max-[480px]:h-11 max-[480px]:w-11 max-[480px]:justify-center max-[480px]:p-0">

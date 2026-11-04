@@ -1,4 +1,4 @@
-/* Tailwind CSS 3.4 — konfigurácia šablóny ANTHROPIA.
+/* Tailwind CSS 3.4 — konfigurácia šablóny ANTHROPICAL.
    Farby odkazujú na CSS premenné v styles.css, takže tmavý/svetlý
    režim čítania sa mení len prepnutím premenných. */
 const config = {

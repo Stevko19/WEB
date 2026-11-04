@@ -1,5 +1,5 @@
-ANTHROPIA — šablóna
-================================
+ANTHROPICAL — šablóna
+=====================
 
 AKO TO SPUSTIŤ
   Otvorte súbor index.html (dvojklik). Nič netreba inštalovať.
@@ -30,13 +30,15 @@ PRIDANIE ČLÁNKU
      "img/mauss.jpg". Najlepšie štvorec, aspoň 800 × 800 px.
      Bez obrázka sa vygeneruje farebná obálka.
      Výrez bez pozadia (PNG s priehľadnosťou) sa zobrazí celý, ak
-     pridáte "obrazok_cely": true. Ak sa pri orezaní stratí dôležitá
+     pridáte "obrazok_cely": true. Obrázok s jednofarebným pozadím sa tak
+     zobrazí celý, ak k nemu pridáte aj "obrazok_pozadie": "#farba" (farbu
+     jeho pozadia). Ak sa pri orezaní stratí dôležitá
      časť obrázka, posuňte výrez cez "obrazok_pozicia", napr. "33% 45%".
   4. Súbor uložte a stránku v prehliadači obnovte (F5).
 
   Článok so "stav": "pripravuje_sa" sa v karuseli zobrazí, ale nedá sa
-  otvoriť. Ukážkové karty (Mauss, Malinowski, Douglasová, Geertz, Turner)
-  sú zástupné — prepíšte ich alebo zmažte.
+  otvoriť. Posledná karta (Mauss) je takáto zástupná ukážka — prepíšte ju
+  alebo zmažte.
 
 INTERNET
   Stránka funguje aj bez internetu. Pripojenie je potrebné len na

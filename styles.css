@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ANTROPOLOGICKÉ ČÍTANIA — vlastné štýly
+   ANTHROPICAL — vlastné štýly
    Dopĺňajú utility Tailwindu tam, kde ide o geometriu, motiv a režim čítania.
 
    Layout: tmavá scéna s oblúkom kariet a textom vo vnútri oblúka (galéria)
@@ -38,12 +38,18 @@
   --bone: #eeebe3;           /* hlavný text */
   --ash: #8f979d;            /* vedľajší text */
   --ochre: #e2b25a;          /* akcent: okr, najstarší pigment ľudstva */
-  --brand-orange: #d2643b;
   --line: rgba(238, 235, 227, .14);
   --line-strong: rgba(238, 235, 227, .3);
   --ambient: #0b0f12;        /* podsvietenie podľa článku v strede */
 
-  --font-display: "Bodoni Moda", "Bodoni MT", Didot, "Times New Roman", serif;
+  /* Farby značky ANTHROPICAL (z loga) */
+  --brand-terracotta: #ca6c4b;
+  --brand-cream: #eedac0;
+  --brand-teal: #3f7172;
+  --brand-ochre: #e0973c;
+  --brand-blue: #819bae;
+  --brand-sage: #829a76;
+
   --font-read: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --font-ui: "Schibsted Grotesk", ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
@@ -72,6 +78,21 @@ body { font-family: var(--font-ui); }
 }
 
 :focus-visible { outline: 2px solid var(--ochre); outline-offset: 3px; }
+
+/* Značka ANTHROPICAL: kompas ako logo + nápis vo farbách loga, veľkosť ako pôvodný nápis */
+.kompas-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.brand-mark { --kompas-kruh: 5px; }
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-read);
+  font-size: .95rem;
+  font-weight: 500;
+  letter-spacing: .015em;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.wordmark-letters { display: inline-flex; align-items: center; }
 
 .icon-btn {
   display: inline-grid; place-items: center;
@@ -107,39 +128,6 @@ body { font-family: var(--font-ui); }
   padding-top: calc(env(safe-area-inset-top, 0px) + 1.1rem);
   padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
   padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
-}
-
-.brand {
-  display: inline-flex; align-items: center; min-width: 0;
-  color: var(--bone); text-decoration: none;
-}
-
-.brand-wordmark {
-  display: inline-flex; align-items: baseline; gap: 0;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5.2vw, 3.5rem);
-  font-weight: 500; line-height: 1; letter-spacing: .035em;
-  color: var(--bone); text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.brand-o {
-  position: relative; display: inline-block;
-  color: transparent;
-  background: linear-gradient(90deg, var(--brand-orange) 0 49.5%, var(--bone) 50% 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.brand-o::after {
-  content: "";
-  position: absolute; top: -.17em; left: 53%;
-  width: .045em;
-  height: 1.35em;
-  background: var(--brand-orange);
-  transform: rotate(28deg);
-  pointer-events: none;
 }
 
 /* Oblúk: karty sú absolútne umiestnené, polohu počíta app.js */
@@ -707,6 +695,7 @@ body { font-family: var(--font-ui); }
 .biblio { font-size: 1rem; line-height: 1.6; }
 .biblio > * + * { margin-top: .85em; }
 .biblio p { padding-left: 1.75em; text-indent: -1.75em; overflow-wrap: anywhere; }
+.biblio p.biblio-note { padding-left: 0; text-indent: 0; font-size: .95rem; color: var(--type-2); }
 .biblio h3 { margin-top: 2.25em; font-family: var(--font-ui); font-size: .95rem; font-weight: 700; color: var(--type-2); }
 .biblio h3:first-child { margin-top: 0; }
 
